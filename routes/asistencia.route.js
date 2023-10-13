@@ -19,4 +19,27 @@ router.post("/asistencia", async (req, res) => {
     }
 });
 
+router.put("/asistencia/:id", (req, res)=>{
+    try {
+        const {id} = req.params;
+        const {nombre, ApellidoPaterno, ApellidoMaterno, fecha}=req.body;
+        asistencia.updateMany({
+            _id:id,
+        },
+        {
+            $set:{
+                nombre:nombre,
+                ApellidoPaterno:ApellidoPaterno,
+                ApellidoMaterno:ApellidoMaterno,
+                fecha:fecha,
+            },
+        }
+        )
+        .then((data)=>res.json(data))
+        .catch((error)=>res.json ({message:error}));
+    } catch (error) {
+        res.status(500).json({error:"ha ocurrido un error"});
+    }
+});
+
 module.exports = router;
