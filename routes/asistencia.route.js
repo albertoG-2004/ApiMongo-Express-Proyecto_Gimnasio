@@ -19,7 +19,7 @@ router.post("/asistencia", async (req, res) => {
     }
 });
 
-router.put("/asistencia/:id", (req, res)=>{
+router.put("/asistencia/:_id", (req, res)=>{
     try {
         const {id} = req.params;
         const {nombre, ApellidoPaterno, ApellidoMaterno, fecha}=req.body;
@@ -39,6 +39,15 @@ router.put("/asistencia/:id", (req, res)=>{
         .catch((error)=>res.json ({message:error}));
     } catch (error) {
         res.status(500).json({error:"ha ocurrido un error"});
+    }
+});
+
+router.delete("/asistencia/:_id", async (req, res) =>{
+    try{
+        const Asistencia= await asistencia.findByIdAndDelete(req.params._id);
+        res.json(Asistencia);
+    }catch(error){
+        res.status(500).json({error: "Ha ocurrido un error, no se ha eliminado"});
     }
 });
 
