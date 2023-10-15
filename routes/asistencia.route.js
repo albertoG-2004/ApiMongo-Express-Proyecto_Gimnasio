@@ -19,12 +19,12 @@ router.post("/asistencia", async (req, res) => {
     }
 });
 
-router.put("/asistencia/:_id", (req, res)=>{
+router.put("/modificar/:noLista", (req, res)=>{
     try {
         const {id} = req.params;
         const {nombre, ApellidoPaterno, ApellidoMaterno, fecha}=req.body;
         asistencia.updateMany({
-            _id:id,
+            noLista:id,
         },
         {
             $set:{
@@ -42,9 +42,9 @@ router.put("/asistencia/:_id", (req, res)=>{
     }
 });
 
-router.delete("/asistencia/:_id", async (req, res) =>{
+router.delete("/eliminar/:noLista", async (req, res) =>{
     try{
-        const Asistencia= await asistencia.findByIdAndDelete(req.params._id);
+        const Asistencia = await asistencia.findByIdAndDelete(req.params.noLista);
         res.json(Asistencia);
     }catch(error){
         res.status(500).json({error: "Ha ocurrido un error, no se ha eliminado"});

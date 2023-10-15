@@ -1,2 +1,27 @@
 ###
 GET http://localhost:3001/apimongo HTTP/1.1
+###
+POST http://localhost:3001/apimongo/asistencia HTTP/1.1
+Content-Type: application/json
+
+{
+    "noLista": 2,
+    "nombre": "Luis Alberto",
+    "ApellidoPaterno": "Gutiérrez",
+    "ApellidoMaterno": "Aguilar",
+    "fecha": "2023-09-29"
+}
+
+###
+PUT http://localhost:3001/apimongo/modificar/2 HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre": "Luis Angel",
+    "ApellidoPaterno": "Aguilar",
+    "ApellidoMaterno": "Hernández",
+    "fecha": "2023-09-28"
+}
+
+###
+DELETE http://localhost:3001/apimongo/eliminar/2 HTTP/1.1
