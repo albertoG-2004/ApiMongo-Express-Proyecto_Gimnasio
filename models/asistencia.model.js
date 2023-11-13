@@ -1,12 +1,11 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose from "mongoose";
 
-const asistenciaSchema = new Schema({
-    noLista: {type: Number, require: true},
-    nombre: {type: String, require: true},
-    ApellidoPaterno: {type: String, require: true},
-    ApellidoMaterno: {type: String, require: true},
-    fecha: {type: String, require: true}
+const asistenciaSchema = new mongoose.Schema({
+    nombre: {type: String, required: true},
+    apellidoPaterno: {type: String, required: true},
+    apellidoMaterno: {type: String, required: true},
+    fecha: {type: String, required: true},
+    pagoDia: {type: String, required: false}
 })
 
-module.exports = mongoose.model("asistencia", asistenciaSchema);
+export default mongoose.model('Asistencia', asistenciaSchema);

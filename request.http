@@ -1,27 +1,32 @@
 ###
-GET http://localhost:3001/apimongo HTTP/1.1
+GET http://localhost:3001/gimnasio HTTP/1.1
 ###
-POST http://localhost:3001/apimongo/asistencia HTTP/1.1
+POST http://localhost:3001/gimnasio/asistencia/registrar HTTP/1.1
 Content-Type: application/json
 
 {
-    "noLista": 2,
     "nombre": "Luis Alberto",
-    "ApellidoPaterno": "Gutiérrez",
-    "ApellidoMaterno": "Aguilar",
+    "apellidoPaterno": "Gutiérrez",
+    "apellidoMaterno": "Aguilar",
     "fecha": "2023-09-29"
 }
-
 ###
-PUT http://localhost:3001/apimongo/modificar/2 HTTP/1.1
+POST http://localhost:3001/gimnasio/rutina/registrar HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre": "Luis Angel",
-    "ApellidoPaterno": "Aguilar",
-    "ApellidoMaterno": "Hernández",
-    "fecha": "2023-09-28"
+    "nombre": "Abdomen principiante",
+    "descripcion": "1.Crunch Abdominales 2.Twist Ruso 3.Escalada de Montaña 4.Elevaciones de pierna",
+    "series": "4",
+    "repeticiones": "12" 
 }
-
 ###
-DELETE http://localhost:3001/apimongo/eliminar/2 HTTP/1.1
+POST http://localhost:3001/gimnasio/clientesrutina/registrar HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre": "Luis Alberto",
+    "apellidoPaterno": "Gutiérrez",
+    "apellidoMaterno": "Aguilar",
+    "celular": "9611964939" 
+}
