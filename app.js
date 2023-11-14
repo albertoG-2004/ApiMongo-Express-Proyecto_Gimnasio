@@ -4,10 +4,12 @@ import rutasAsistencia from './routes/asistencia.route.js';
 import rutasRutina from './routes/rutinaRoute.js';
 import rutasClienteRutina from './routes/clienteRutinaRoute.js';
 import dotenv from "dotenv";
+import cors from 'cors';
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.use("/gimnasio/asistencia", rutasAsistencia);
 app.use("/gimnasio/rutina", rutasRutina);

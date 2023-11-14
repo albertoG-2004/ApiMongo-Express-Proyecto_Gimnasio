@@ -26,7 +26,7 @@ export const registro = async(req, res) => {
         }
         //Validar que el celular sea de 10 caracteres numéricos 
         if (!celularPermitido.test(celular)) {
-            return res.status(400).json({ error: "Celular inválido, solo se aceptan 10 caracteres numericos" });
+            return res.status(400).json({ error: "Celular inválido, solo se aceptan 10 caracteres numéricos" });
         }
         const newCliente = new ClientesRutina({
             nombre,
@@ -42,6 +42,24 @@ export const registro = async(req, res) => {
         })
     } catch (error) {
         res.status(500).json({error: "Ha surgido un problema al registrar al cliente"});
+        console.log(error);
+    }
+}
+
+export const buscar = async(req, res) =>{
+    const celular = req.params.celular;
+    //Expresión regular para validar que sean 10 caracteres numéricos
+    const celularPermitido = /^[0-9]{10}$/;
+
+    try {
+        if (!celularPermitido.test(celular)) {
+            return res.status(400).json({ error: "Celular inválido, solo se aceptan 10 caracteres numéricos"})
+        }
+        await ClientesRutina.findOne(celular)
+        .then((data)=>res.json(data))
+        .catch((error)=>res.json({message:error}));
+    } catch (error) {
+        res.status(500).json({error: "Ha ocurrido un error"});
         console.log(error);
     }
 }
