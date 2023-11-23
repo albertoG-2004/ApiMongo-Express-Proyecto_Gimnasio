@@ -77,11 +77,10 @@ PUT http://localhost:3001/gimnasio/rutina/modificarutina HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre": "Abdominales",
-    "descripcion": "1.Crunch abdominal 2.Escalada de montaña",
+    "nombre": "Brazos",
+    "descripcion": "1.Lagartijas 2.Escalada de montaña",
     "series": 4,
-    "repeticiones": 8,
-    "contraseña": "AAAAAAAA"
+    "repeticiones": 8
 }
 
 ###
