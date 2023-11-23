@@ -61,3 +61,40 @@ export const buscar = async(req, res) =>{
         console.log(error);
     }
 }
+
+export const modificar = async (req, res) =>{
+    const {nombre, descripcion, series, repeticiones} = req.body;
+
+    try {
+        Rutina.updateMany({
+            nombre:nombre
+        },
+        {
+            $set:{
+                descripcion,
+                series,
+                repeticiones
+            },
+        })
+        .then((data)=>res.json(data))
+        .catch((error)=>res.json ({message:error}));
+    } catch (error) {
+        res.status(500).json({error: "Ha surgido un problema al modificar la rutina"});
+        console.log(error);
+    }
+}
+
+export const eliminar = async(req, res) =>{
+    const { nombre } = req.body;
+
+    try {
+        await Rutina.findOneAndDelete({
+            nombre:nombre
+        })
+        .then((data)=>res.json(data))
+        .catch((error)=>res.json ({message:error}));
+    } catch (error) {
+        res.status(500).json({error: "Ha surgido un problema al eliminar la rutina"});
+        console.log(error);
+    }
+}

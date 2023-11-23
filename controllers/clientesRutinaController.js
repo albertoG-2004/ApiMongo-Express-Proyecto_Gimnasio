@@ -1,7 +1,7 @@
 import ClientesRutina from "../models/clientesRutina.model.js";
 
 export const registro = async(req, res) => {
-    const { nombre, apellidoPaterno, apellidoMaterno, celular } = req.body;
+    const { nombre, apellidoPaterno, apellidoMaterno, celular, contraseña } = req.body;
     //Expresión regular para validar que no se acepten caracteres especiales(excepto acentos) ni numeros
     const permitido = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/;
     //Expresión regular para validar que sean 10 caracteres numéricos
@@ -9,7 +9,7 @@ export const registro = async(req, res) => {
 
     try {
         //Validar que todos los datos sean no vacios
-        if (!nombre || !apellidoPaterno || !apellidoMaterno || !celular) {
+        if (!nombre || !apellidoPaterno || !apellidoMaterno || !celular || !contraseña) {
             return res.status(400).json({error:"Todos los campos son obligatorios"});
         }
         //Validar que el nombre no contenga caracteres especiales o números
@@ -28,11 +28,15 @@ export const registro = async(req, res) => {
         if (!celularPermitido.test(celular)) {
             return res.status(400).json({ error: "Celular inválido, solo se aceptan 10 caracteres numéricos" });
         }
+        if (contraseña.length !== 8) {
+            return res.status(400).json({ error: "Contraseña inválida, la contraseña debe contener 8 caracteres" });
+        }
         const newCliente = new ClientesRutina({
             nombre,
             apellidoPaterno,
             apellidoMaterno,
-            celular
+            celular,
+            contraseña
         })
         //Validar el modelo de clientesrutina
         await newCliente.validate();

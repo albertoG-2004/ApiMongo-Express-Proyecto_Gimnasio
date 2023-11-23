@@ -1,11 +1,38 @@
 ###
-GET http://localhost:3001/gimnasio/asistencia/buscar HTTP/1.1
+POST http://localhost:3001/gimnasio/asistencia/asistenciasdia HTTP/1.1
+Content-Type: application/json
+
+{
+    "fechaInicio": "2023-09-29",
+    "fechaFin": "2023-10-29"
+}
+
+###
+POST http://localhost:3001/gimnasio/asistencia/asistenciasmes HTTP/1.1
+Content-Type: application/json
+
+{
+    "fechaInicio": "2023-09-29",
+    "fechaFin": "2023-10-29"
+}
+
 ###
 GET http://localhost:3001/gimnasio/rutina/buscar HTTP/1.1
 ###
 GET http://localhost:3001/gimnasio/clientesrutina/buscar/9611964939 HTTP/1.1
 ###
-POST http://localhost:3001/gimnasio/asistencia/registrar HTTP/1.1
+POST http://localhost:3001/gimnasio/asistencia/registrarplandia HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre": "Luis Alberto",
+    "apellidoPaterno": "Gutiérrez",
+    "apellidoMaterno": "Aguilar",
+    "fecha": "2023-09-29"
+}
+
+###
+POST http://localhost:3001/gimnasio/asistencia/registrarplanmes HTTP/1.1
 Content-Type: application/json
 
 {
@@ -24,6 +51,7 @@ Content-Type: application/json
     "series": "4",
     "repeticiones": "12" 
 }
+
 ###
 POST http://localhost:3001/gimnasio/clientesrutina/registrar HTTP/1.1
 Content-Type: application/json
@@ -32,5 +60,26 @@ Content-Type: application/json
     "nombre": "Luis Alberto",
     "apellidoPaterno": "Gutiérrez",
     "apellidoMaterno": "Aguilar",
-    "celular": "9611964939" 
+    "celular": "9611964939",
+    "contraseña": "AAAAAAAA"
+}
+
+###
+PUT http://localhost:3001/gimnasio/rutina/modificarutina HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre": "Abdominales",
+    "descripcion": "1.Crunch abdominal 2.Escalada de montaña",
+    "series": 4,
+    "repeticiones": 8,
+    "contraseña": "AAAAAAAA"
+}
+
+###
+DELETE  http://localhost:3001/gimnasio/rutina/eliminarutina HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre": "Abdomen principiante"
 }

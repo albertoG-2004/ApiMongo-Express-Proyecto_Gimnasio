@@ -1,7 +1,8 @@
 import Asistencia from '../models/asistencia.model.js';
 
-export const registro = async(req, res) =>{
+export const registroDia = async(req, res) =>{
     const {nombre, apellidoPaterno, apellidoMaterno, fecha} = req.body;
+    const plan = "Dia"
     //Expresión regular para validar que no se acepten caracteres especiales(excepto acentos) ni numeros
     const permitido = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/;
 
@@ -27,7 +28,8 @@ export const registro = async(req, res) =>{
             nombre,
             apellidoPaterno,
             apellidoMaterno,
-            fecha
+            fecha,
+            plan
         });
         //Validar el modelo de asistencia
         await newAsistencia.validate();
@@ -41,13 +43,81 @@ export const registro = async(req, res) =>{
     }
 }
 
-export const buscar = async(req, res) =>{
+export const registroMensual = async(req, res) =>{
+    const {nombre, apellidoPaterno, apellidoMaterno, fecha} = req.body;
+    const plan = "Mensual"
+    //Expresión regular para validar que no se acepten caracteres especiales(excepto acentos) ni numeros
+    const permitido = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/;
+
     try {
-        await Asistencia.find()
-        .then((data)=>res.json(data))
-        .catch((error)=>res.json ({message:error}));
+        //Validar que todos los datos sean no vacios
+        if (!nombre || !apellidoPaterno || !apellidoMaterno || !fecha) {
+            return res.status(400).json({ error: "Todos los campos son obligatorios" });
+        }
+        //Validar que el nombre no contenga caracteres especiales o números 
+        if (!permitido.test(nombre)) {
+            return res.status(400).json({ error: "Nombre inválido, solo se aceptan acentos como caracteres especiales" });
+        }
+        //Validar que el apellido paterno no contenga caracteres especiales o números 
+        if (!permitido.test(apellidoPaterno)) {
+            return res.status(400).json({ error: "Apellido paterno inválido, solo se aceptan acentos como caracteres especiales" });
+        }
+        //Validar que el apellido materno no contenga caracteres especiales o números 
+        if (!permitido.test(apellidoMaterno)) {
+            return res.status(400).json({ error: "Apellido materno inválido, solo se aceptan acentos como caracteres especiales" });
+        }
+        
+        const newAsistencia = new Asistencia({
+            nombre,
+            apellidoPaterno,
+            apellidoMaterno,
+            fecha,
+            plan
+        });
+        //Validar el modelo de asistencia
+        await newAsistencia.validate();
+        await newAsistencia.save();
+        res.json({
+            newAsistencia
+        })
     } catch (error) {
-        res.status(500).json({error: "Ha ocurrido un error"});
+        res.status(500).json({error: "Ha surgido un problema al registrar la asistencia"});
+        console.log(error);
+    }
+}
+
+export const buscardia = async (req, res) => {
+    const { fechaInicio, fechaFin } = req.body;
+    const plan = "Dia";
+    try {
+        const cantidadDocumentos = await Asistencia.countDocuments({
+            fecha: {
+                $gte: fechaInicio,
+                $lte: fechaFin
+            },
+            plan: plan
+        })
+        res.json({ cantidadDocumentos })
+    } catch (error) {
+        res.status(500).json({ error: "Ha ocurrido un error" });
+        console.log(error);
+    }
+}
+
+export const buscarmes = async (req, res) => {
+    const { fechaInicio, fechaFin } = req.body;
+    const plan = "Mensual";
+    try {
+        const cantidadDocumentos = await Asistencia.countDocuments({
+            fecha: {
+                $gte: fechaInicio,
+                $lte: fechaFin
+            },
+            plan: plan
+        })
+        res.json({ cantidadDocumentos })
+    } catch (error) {
+        res.status(500).json({ error: "Ha ocurrido un error" });
         console.log(error);
     }
 }

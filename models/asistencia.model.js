@@ -5,7 +5,7 @@ const asistenciaSchema = new mongoose.Schema({
     apellidoPaterno: {type: String, required: true},
     apellidoMaterno: {type: String, required: true},
     fecha: {type: String, required: true},
-    pagoDia: {type: String, required: false}
+    plan: {type: String, required: true}
 })
 
 export default mongoose.model('Asistencia', asistenciaSchema);
