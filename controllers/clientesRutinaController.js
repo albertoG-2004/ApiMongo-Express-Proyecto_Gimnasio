@@ -51,17 +51,23 @@ export const registro = async(req, res) => {
 }
 
 export const buscar = async(req, res) =>{
-    const celular = req.params.celular;
-    //Expresión regular para validar que sean 10 caracteres numéricos
+    const {celular, contraseña} = req.body;
     const celularPermitido = /^[0-9]{10}$/;
 
     try {
         if (!celularPermitido.test(celular)) {
             return res.status(400).json({ error: "Celular inválido, solo se aceptan 10 caracteres numéricos"})
         }
-        await ClientesRutina.findOne(celular)
-        .then((data)=>res.json(data))
-        .catch((error)=>res.json({message:error}));
+        if (contraseña.length !== 8) {
+            return res.status(400).json({ error: "Contraseña inválida, la contraseña debe tener 10 caracteres"})
+        }
+        const cliente = await ClientesRutina.findOne({
+            celular,
+            contraseña
+        })
+        res.json({
+            cliente
+        })
     } catch (error) {
         res.status(500).json({error: "Ha ocurrido un error"});
         console.log(error);

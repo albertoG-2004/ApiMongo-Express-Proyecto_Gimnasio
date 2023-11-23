@@ -88,7 +88,7 @@ export const eliminar = async(req, res) =>{
     const { nombre } = req.body;
 
     try {
-        await Rutina.findOneAndDelete({
+        await Rutina.findOneAndRemove({
             nombre:nombre
         })
         .then((data)=>res.json(data))

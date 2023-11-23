@@ -18,8 +18,16 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3001/gimnasio/rutina/buscar HTTP/1.1
+
 ###
-GET http://localhost:3001/gimnasio/clientesrutina/buscar/9611964939 HTTP/1.1
+POST http://localhost:3001/gimnasio/clientesrutina/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "celular": "9615487845",
+    "contraseña": "s_rqoG7&"
+}
+
 ###
 POST http://localhost:3001/gimnasio/asistencia/registrarplandia HTTP/1.1
 Content-Type: application/json
@@ -81,5 +89,5 @@ DELETE  http://localhost:3001/gimnasio/rutina/eliminarutina HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre": "Abdomen principiante"
+    "nombre": "Pecho"
 }
