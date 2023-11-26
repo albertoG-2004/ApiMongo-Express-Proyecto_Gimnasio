@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const asistenciaSchema = new mongoose.Schema({
+    id: {type: Number, required: false},
     nombre: {type: String, required: true},
     apellidoPaterno: {type: String, required: true},
     apellidoMaterno: {type: String, required: true},

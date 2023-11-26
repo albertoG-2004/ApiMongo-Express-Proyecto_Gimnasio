@@ -1,7 +1,7 @@
 import Asistencia from '../models/asistencia.model.js';
 
 export const registroDia = async(req, res) =>{
-    const {nombre, apellidoPaterno, apellidoMaterno, fecha} = req.body;
+    const { nombre, apellidoPaterno, apellidoMaterno, fecha} = req.body;
     const plan = "Dia"
     //Expresión regular para validar que no se acepten caracteres especiales(excepto acentos) ni numeros
     const permitido = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/;
@@ -44,15 +44,19 @@ export const registroDia = async(req, res) =>{
 }
 
 export const registroMensual = async(req, res) =>{
-    const {nombre, apellidoPaterno, apellidoMaterno, fecha} = req.body;
+    const {id_cliente, nombre, apellidoPaterno, apellidoMaterno, fecha} = req.body;
     const plan = "Mensual"
     //Expresión regular para validar que no se acepten caracteres especiales(excepto acentos) ni numeros
     const permitido = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/;
+    const id = parseInt(id_cliente);
 
     try {
         //Validar que todos los datos sean no vacios
-        if (!nombre || !apellidoPaterno || !apellidoMaterno || !fecha) {
+        if (!id || !nombre || !apellidoPaterno || !apellidoMaterno || !fecha) {
             return res.status(400).json({ error: "Todos los campos son obligatorios" });
+        }
+        if (isNaN(id)) {
+            return res.status(400).json({ error: "El id debe ser un número" });
         }
         //Validar que el nombre no contenga caracteres especiales o números 
         if (!permitido.test(nombre)) {
@@ -68,6 +72,7 @@ export const registroMensual = async(req, res) =>{
         }
         
         const newAsistencia = new Asistencia({
+            id,
             nombre,
             apellidoPaterno,
             apellidoMaterno,
@@ -81,8 +86,32 @@ export const registroMensual = async(req, res) =>{
             newAsistencia
         })
     } catch (error) {
-        res.status(500).json({error: "Ha surgido un problema al registrar la asistencia"});
         console.log(error);
+        res.status(500).json({error: "Ha surgido un problema al registrar la asistencia"});
+    }
+}
+
+export const buscarAsistencia = async (req, res) =>{
+    const { id_cliente, fecha } = req.body;
+    const id = parseInt(id_cliente);
+
+    try {
+        if (!id || !fecha){
+            return res.status(400).json({ error: "Todos los campos son obligatorios" });
+        }
+        if (isNaN(id)) {
+            return res.status(400).json({ error: "El id debe ser un número" });
+        }
+        const cliente = await Asistencia.findOne({
+            id
+        })
+        
+        res.json({
+            cliente
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error: "Ha surgido un problema al buscar la asistencia"});
     }
 }
 
