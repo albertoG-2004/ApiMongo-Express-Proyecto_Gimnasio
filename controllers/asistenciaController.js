@@ -145,6 +145,7 @@ export const actualizar = async (req, res) =>{
         console.log(error);
     }
 }
+
 //El metodo no es utilizado en el sistema
 export const eliminar = async(req, res) =>{
     const id = req.params.id;
