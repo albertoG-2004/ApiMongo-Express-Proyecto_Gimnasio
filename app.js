@@ -3,6 +3,7 @@ import { conn } from './connection/connection.js';
 import rutasAsistencia from './routes/asistencia.route.js';
 import rutasRutina from './routes/rutinaRoute.js';
 import rutasClienteRutina from './routes/clienteRutinaRoute.js';
+import rutasMensajes from './routes/message.js';
 import dotenv from "dotenv";
 import cors from 'cors';
 import { Server as SocketServer } from 'socket.io';
@@ -23,6 +24,7 @@ const io = new SocketServer(server, {
 app.use("/gimnasio/asistencia", rutasAsistencia);
 app.use("/gimnasio/rutina", rutasRutina);
 app.use("/gimnasio/clientesrutina", rutasClienteRutina);
+app.use("/gimnasio/mensajes", rutasMensajes);
 
 
 conn();
