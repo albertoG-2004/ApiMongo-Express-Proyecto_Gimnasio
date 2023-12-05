@@ -16,6 +16,7 @@ app.use("/gimnasio/rutina", rutasRutina);
 app.use("/gimnasio/clientesrutina", rutasClienteRutina);
 
 conn();
+
 const port = process.env.PORT;
 app.listen(port, ()=>{
     console.log("El servidor esta corriendo en el puerto 3001");
