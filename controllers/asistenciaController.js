@@ -103,7 +103,8 @@ export const buscarAsistencia = async (req, res) =>{
             return res.status(400).json({ error: "El id debe ser un número" });
         }
         const cliente = await Asistencia.findOne({
-            id
+            id,
+            fecha
         })
         
         res.json({
