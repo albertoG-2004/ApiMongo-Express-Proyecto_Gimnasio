@@ -5,7 +5,7 @@ import rutasRutina from './routes/rutinaRoute.js';
 import rutasClienteRutina from './routes/clienteRutinaRoute.js';
 import dotenv from "dotenv";
 import cors from 'cors';
-import {Server as SocketServer} from 'socket.io';
+import { Server as SocketServer } from 'socket.io';
 import http from 'http';
 
 dotenv.config();
@@ -41,6 +41,6 @@ io.on('connection', (socket) =>{
 })
 
 const port = process.env.PORT;
-app.listen(port, ()=>{
+server.listen(port, ()=>{
     console.log("El servidor esta corriendo en el puerto 3001");
 })

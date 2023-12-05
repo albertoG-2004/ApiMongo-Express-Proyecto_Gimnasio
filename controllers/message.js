@@ -1,4 +1,4 @@
-import Message from '../models/message.js'
+import Message from '../models/message.js';
 
 var controller = {
     //Función para guardar un mensaje
