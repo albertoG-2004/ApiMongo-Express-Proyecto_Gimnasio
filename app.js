@@ -18,14 +18,14 @@ app.use(cors());
 const server = http.createServer(app)
 const io = new SocketServer(server, {
     cors: {
-        origin: '*'
+        origin: 'http://localhost:3000'
     }
 })
+
 app.use("/gimnasio/asistencia", rutasAsistencia);
 app.use("/gimnasio/rutina", rutasRutina);
 app.use("/gimnasio/clientesrutina", rutasClienteRutina);
 app.use("/gimnasio/mensajes", rutasMensajes);
-
 
 conn();
 
