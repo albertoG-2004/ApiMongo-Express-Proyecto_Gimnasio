@@ -18,7 +18,7 @@ app.use(cors());
 const server = http.createServer(app)
 const io = new SocketServer(server, {
     cors: {
-        origin:process.env.URL_FRONTEND
+        origin:[process.env.URL_FRONTEND, process.env.URL_FRONTEND_USER]
     }
 })
 
