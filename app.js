@@ -15,34 +15,34 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const server = http.createServer(app)
-const io = new SocketServer(server, {
-    cors: {
-        origin: 'http://23.22.230.44'
-    }
-})
+// const server = http.createServer(app)
+// const io = new SocketServer(server, {
+//     cors: {
+//         origin: 'http://23.22.230.44'
+//     }
+// })
 
 app.use("/gimnasio/asistencia", rutasAsistencia);
 app.use("/gimnasio/rutina", rutasRutina);
 app.use("/gimnasio/clientesrutina", rutasClienteRutina);
 app.use("/gimnasio/mensajes", rutasMensajes);
 
-conn();
+// io.on('connection', (socket) =>{
+//     socket.on('message', (message, nickname) => {
 
-io.on('connection', (socket) =>{
-    socket.on('message', (message, nickname) => {
-
-        newMessageCount++;
-    io.emit('newMessage', newMessageCount);
-        console.log(message)
-        socket.broadcast.emit('message', {
-            body: message,
-            from: nickname
-        })
-    })
-})
+//         newMessageCount++;
+//     io.emit('newMessage', newMessageCount);
+//         console.log(message)
+//         socket.broadcast.emit('message', {
+//             body: message,
+//             from: nickname
+//         })
+//     })
+// })
 
 const port = process.env.PORT;
 server.listen(port, ()=>{
-    console.log("El servidor esta corriendo en el puerto 3001");
+    console.log("El servidor esta corriendo en el puerto:"+port);
 })
+
+conn();
