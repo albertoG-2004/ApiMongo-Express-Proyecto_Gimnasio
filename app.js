@@ -9,6 +9,8 @@ import cors from 'cors';
 import { Server as SocketServer } from 'socket.io';
 import http from 'http';
 
+let newMessageCount = 0;
+
 const app = express();
 app.use(express.json());
 app.use(cors());
