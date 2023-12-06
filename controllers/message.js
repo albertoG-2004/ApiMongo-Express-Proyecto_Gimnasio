@@ -3,25 +3,34 @@ import Message from '../models/message.js';
 var controller = {
     //Función para guardar un mensaje
     save: (req, res) => {
-        var params = req.body
-        var message = new Message()
-        message.message = params.message
-        message.from = params.from
-        console.log(message)
-        message.save((error, messageStored) =>{
-            if(error || !messageStored){
-                return res.status(404).send({
+        var params = req.body;
+        var message = new Message({
+           message: params.message,
+           from: params.from
+        });
+        console.log(message);
+        
+        message.save()
+           .then(messageStored => {
+              if (!messageStored) {
+                 return res.status(404).json({
                     status: 'error',
                     message: 'No ha sido posible guardar el mensaje'
-                })
-            }
-            return res.status(200).send({
-                status: 'success',
-                messageStored
-            })
-
-        })
-    },
+                 });
+              }
+              return res.status(200).json({
+                 status: 'success',
+                 messageStored
+              });
+           })
+           .catch(error => {
+              console.log(error);
+              return res.status(500).json({
+                 status: 'error',
+                 message: 'No ha sido posible guardar el mensaje'
+              });
+           });
+     },
 
     //Función para obtener los mensajes
     getMessages: async(req, res) => {
