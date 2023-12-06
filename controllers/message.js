@@ -27,7 +27,7 @@ var controller = {
     getMessages: (req, res) => {
         var query = Message.find({})
 
-        query.sort('-_id').exec((error, messages) => {
+        query.sort('-_id').then((error, messages) => {
             if(error){
 				return res.status(500).send({
 					status: "error",
