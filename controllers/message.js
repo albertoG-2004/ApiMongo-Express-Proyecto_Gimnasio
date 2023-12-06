@@ -25,7 +25,7 @@ var controller = {
 
     //Función para obtener los mensajes
     getMessages: async(req, res) => {
-        var query = Message.find({})
+        var query = Message.find()
 
         query.sort('-_id').exec()
         .then(messages => {
