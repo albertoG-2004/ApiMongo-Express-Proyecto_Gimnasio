@@ -24,12 +24,12 @@ var controller = {
     },
 
     //Función para obtener los mensajes
-    getMessages: (req, res) => {
+    getMessages: async(req, res) => {
         var query = Message.find({})
 
         query.sort('-_id').exec()
-   .then(messages => {
-      if (!messages || messages.length === 0) {
+        .then(messages => {
+        if (!messages || messages.length === 0) {
          return res.status(404).json({
             status: "error",
             message: "No hay mensajes para mostrar"
