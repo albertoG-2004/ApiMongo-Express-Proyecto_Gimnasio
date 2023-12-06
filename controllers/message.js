@@ -27,28 +27,27 @@ var controller = {
     getMessages: (req, res) => {
         var query = Message.find({})
 
-        query.sort('-_id').then((error, messages) => {
-            if(error){
-				return res.status(500).send({
-					status: "error",
-					message: "Error al extraer los datos"
-				})
-			}
+        query.sort('-_id').exec()
+   .then(messages => {
+      if (!messages || messages.length === 0) {
+         return res.status(404).json({
+            status: "error",
+            message: "No hay mensajes para mostrar"
+         });
+      }
 
-			//Si no existen artículos:
-			if(!messages){
-				return res.status(404).send({
-					status: "error",
-					message: "No hay mensajes para mostrar"
-				})
-			}
-
-			return res.status(200).send({
-				status: "success",
-				messages
-			})
-
-        })
+      return res.status(200).json({
+         status: "success",
+         messages
+      });
+   })
+   .catch(error => {
+      console.log(error);
+      return res.status(500).json({
+         status: "error",
+         message: "Error al extraer los datos"
+      });
+   });
     }
 }
 
